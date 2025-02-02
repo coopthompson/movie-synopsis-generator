@@ -7,9 +7,37 @@
     <link rel="stylesheet" href="stylesheet.css">
 </head>
 <body>
+    <div id="overlay" class="overlay"></div>
+
+    <div id="settings-menu" class="settings-menu">
+        <div class="settings-header">
+            <h2>Settings</h2>
+            <svg id="close-settings" class="close-button" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228
+                 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM8.96963 8.96965C9.26252 8.67676 9.73739 8.67676 10.0303 8.96965L12 10.9393L13.9696 8.96967C14.2625 8.67678 14.7374 8.67678 15.0303 8.96967C15.3232 9.26256 15.3232 9.73744 15.0303 10.0303L13.0606 12L15.0303 13.9696C15.3232 14.2625 15.3232 14.7374 15.0303 15.0303C14.7374 15.3232 14.2625 15.3232 13.9696 15.0303L12 13.0607L10.0303 15.0303C9.73742 15.3232 9.26254 15.3232 8.96965 15.0303C8.67676 14.7374 8.67676 14.2625 8.96965 13.9697L10.9393 12L8.96963 10.0303C8.67673 9.73742 8.67673 9.26254 8.96963 8.96965Z" fill="currentColor"/>
+            </svg>
+        </div>
+        <div class="settings-options">
+            <div class="sub-options">
+                <h3>Text Size</h3>
+                <label><input type="radio" name="text-size" value="small" checked> Small Text</label>
+                <label><input type="radio" name="text-size" value="medium"> Medium Text</label>
+                <label><input type="radio" name="text-size" value="large"> Large Text</label>
+            </div>
+
+        <div class="sub-options">
+            <h3>Display Settings</h3>
+            <label><input type="radio" name="display-mode" value="light" checked> Light Mode</label>
+            <label><input type="radio" name="display-mode" value="dark"> Dark Mode</label>
+            <label><input type="radio" name="display-mode" value="high-contrast"> High Contrast</label>
+        </div>
+
+        </div>
+    </div>
+
     <div class="main-container">
         <div class="settings-container">
-            <svg class="settings" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg">
+            <svg class="settings" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M14.2788 2.15224C13.9085 2 13.439 2 12.5 2C11.561 2
                 11.0915 2 10.7212 2.15224C10.2274 2.35523 9.83509 2.74458 9.63056 3.23463C9.53719 3.45834 9.50065
                 3.7185 9.48635 4.09799C9.46534 4.65568 9.17716 5.17189 8.69017 5.45093C8.20318 5.72996 7.60864
@@ -34,7 +62,7 @@
                 16.7969 5.73002 16.3099 5.45096C15.8229 5.17191 15.5347 4.65566 15.5136 4.09794C15.4993 3.71848 15.4628
                 3.45833 15.3694 3.23463C15.1649 2.74458 14.7726 2.35523 14.2788 2.15224ZM12.5 15C14.1695 15 15.5228
                 13.6569 15.5228 12C15.5228 10.3431 14.1695 9 12.5 9C10.8305 9 9.47716 10.3431 9.47716 12C9.47716 13.6569
-                10.8305 15 12.5 15Z" fill="#1C274C"/>
+                10.8305 15 12.5 15Z" fill="currentColor"/>
             </svg>
         </div>
         <h1>Movie Generator</h1>
@@ -43,7 +71,7 @@
             <textarea id="prompt-box" class="shared-style" required>
                 Enter your prompt here...
             </textarea>
-            <button type="submit" class="prompt-button">submit</button>
+            <button type="submit" class="prompt-button">Submit</button>
 
         </form>
         <h3 id="movie-description">Generated Synopsis</h3>
@@ -141,6 +169,8 @@
             </svg>
         </div>
     </div>
+
+    <h5>*Powered by gpt-3.5-turbo</h5>
     <script src="script.js"></script>
 </body>
 </html>
