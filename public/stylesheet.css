@@ -5,6 +5,20 @@ body {
     padding: 0;
 }
 
+body.light-mode .generated-text {
+    color: #666;
+}
+
+body.dark-mode .generated-text {
+    color: white;
+}
+
+body.high-contrast-mode .generated-text {
+    color: yellow;
+    font-weight: bold;
+}
+
+
 textarea {
     appearance: none;
     border: none;

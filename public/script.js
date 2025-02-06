@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (!isRandom && (!prompt || prompt === "Enter your prompt here...")) {
-            synopsisOutput.innerText = "Please enter a valid prompt...";
+            synopsisOutput.innerText = "Please enter a valid prompt or click the Random button...";
             return;
         }
 
