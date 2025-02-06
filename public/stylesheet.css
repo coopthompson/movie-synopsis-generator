@@ -173,17 +173,26 @@ h1 {
     color: #333;
     margin-bottom: 20px;
 }
-p {
+
+p, p.light-mode {
     font-size: 1.5rem;
     color: #666;
+}
+
+p.dark-mode {
+    color: white;
+}
+
+p.high-contrast-mode {
+    color: yellow;
 }
 
 #prompt-box {
     width: 95%;
     max-width: 900px;
-    height: 150px; /* Increased height */
+    height: 150px;
     padding: 15px;
-    font-size: 1.6rem; /* Normal text inside input */
+    font-size: 1.6rem;
     border: 3px solid #ccc;
     border-radius: 10px;
     outline: none;
@@ -192,7 +201,7 @@ p {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.prompt-button {
+.prompt-button, .random-button {
     padding: 15px 25px;
     font-size: 1.6rem;
     color: white;
@@ -206,6 +215,19 @@ p {
 }
 .prompt-button:hover {
     background: #0056b3;
+}
+
+.random-button:hover {
+    background: #0056b3;
+}
+
+.button-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    height: 100px;
+    width: 100%;
 }
 
 body {

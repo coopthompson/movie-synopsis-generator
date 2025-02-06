@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Generator</title>
     <link rel="stylesheet" href="stylesheet.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
     <div id="overlay" class="overlay"></div>
@@ -14,7 +15,13 @@
             <h2>Settings</h2>
             <svg id="close-settings" class="close-button" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228
-                 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM8.96963 8.96965C9.26252 8.67676 9.73739 8.67676 10.0303 8.96965L12 10.9393L13.9696 8.96967C14.2625 8.67678 14.7374 8.67678 15.0303 8.96967C15.3232 9.26256 15.3232 9.73744 15.0303 10.0303L13.0606 12L15.0303 13.9696C15.3232 14.2625 15.3232 14.7374 15.0303 15.0303C14.7374 15.3232 14.2625 15.3232 13.9696 15.0303L12 13.0607L10.0303 15.0303C9.73742 15.3232 9.26254 15.3232 8.96965 15.0303C8.67676 14.7374 8.67676 14.2625 8.96965 13.9697L10.9393 12L8.96963 10.0303C8.67673 9.73742 8.67673 9.26254 8.96963 8.96965Z" fill="currentColor"/>
+                 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM8.96963 8.96965C9.26252 8.67676 9.73739
+                 8.67676 10.0303 8.96965L12 10.9393L13.9696 8.96967C14.2625 8.67678 14.7374 8.67678 15.0303
+                 8.96967C15.3232 9.26256 15.3232 9.73744 15.0303 10.0303L13.0606 12L15.0303 13.9696C15.3232
+                 14.2625 15.3232 14.7374 15.0303 15.0303C14.7374 15.3232 14.2625 15.3232 13.9696 15.0303L12
+                 13.0607L10.0303 15.0303C9.73742 15.3232 9.26254 15.3232 8.96965 15.0303C8.67676 14.7374 8.67676
+                 14.2625 8.96965 13.9697L10.9393 12L8.96963 10.0303C8.67673 9.73742 8.67673 9.26254 8.96963 8.96965Z"
+                      fill="currentColor"/>
             </svg>
         </div>
         <div class="settings-options">
@@ -71,16 +78,18 @@
             <textarea id="prompt-box" class="shared-style" required>
                 Enter your prompt here...
             </textarea>
-            <button type="submit" class="prompt-button">Submit</button>
-
+            <div class="button-box">
+                <button type="submit" class="prompt-button">Submit</button>
+                <button type="submit" class="random-button">Random</button>
+            </div>
         </form>
         <h3 id="movie-description">Generated Synopsis</h3>
         <div class="synopsis shared-style">
-            <p></p>
+            <p class=".generated-text"></p>
         </div>
         <div class="socials">
             <h3>Share your creations (We don't keep your info)</h3>
-            <svg class="social-widget" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <svg class="social-widget" onclick="shareOnFacebook()" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>Facebook-color</title>
                 <desc>Created with Sketch.</desc>
                 <defs>
@@ -100,7 +109,7 @@
                     </g>
                 </g>
             </svg>
-            <svg class="social-widget" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class="social-widget" onclick="shareOnTwitter()" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="24" cy="24" r="20" fill="#1DA1F2"/>
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M36 16.3086C35.1177 16.7006 34.1681 16.9646 33.1722
                     17.0838C34.1889 16.4742 34.9697 15.5095 35.3368 14.36C34.3865 14.9247 33.3314 15.3335 32.2107
@@ -114,59 +123,7 @@
                     33.5043C28.6037 33.5043 33.5562 26.0016 33.5562 19.4956C33.5562 19.282 33.5522 19.0693 33.5418
                     18.8589C34.5049 18.1629 35.34 17.2958 36 16.3086Z" fill="white"/>
             </svg>
-            <svg class="social-widget" viewBox="7.086 -169.483 1277.149 1277.149" shape-rendering="geometricPrecision"
-                 text-rendering="geometricPrecision" image-rendering="optimizeQuality"
-                 xmlns="http://www.w3.org/2000/svg">
-                <path fill="none" d="M1138.734 931.095h.283M1139.017 931.095h-.283"/>
-                <path d="M1179.439 7.087c57.543 0 104.627 47.083 104.627 104.626v30.331l-145.36 103.833-494.873
-                340.894L148.96 242.419v688.676h-37.247c-57.543 0-104.627-47.082-104.627-104.625V111.742C7.086
-                54.198 54.17 7.115 111.713 7.115l532.12 394.525L1179.41 7.115l.029-.028z" fill="#e75a4d"/>
-                <linearGradient id="a" gradientUnits="userSpaceOnUse" x1="1959.712" y1="737.107" x2="26066.213"
-                                y2="737.107" gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)">
-                    <stop offset="0" stop-color="#f8f6ef"/>
-                    <stop offset="1" stop-color="#e7e4d6"/>
-                </linearGradient><path fill="url(#a)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z"/>
-                <path fill="#e7e4d7" d="M148.96 242.419v688.676h989.774V245.877L643.833 586.771z"/>
-                <path fill="#b8b7ae" d="M148.96 931.095l494.873-344.324-2.24-1.586L148.96 923.527z"/>
-                <path fill="#b7b6ad" d="M1138.734 245.877l.283 685.218-495.184-344.324z"/>
-                <path d="M1284.066 142.044l.17 684.51c-2.494 76.082-35.461 103.238-145.219 104.514l-.283-685.219
-                145.36-103.833-.028.028z" fill="#b2392f"/>
-                <linearGradient
-                    id="b" gradientUnits="userSpaceOnUse" x1="1959.712" y1="737.107" x2="26066.213" y2="737.107"
-                    gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)">
-                <stop offset="0" stop-color="#f8f6ef"/>
-                <stop offset="1" stop-color="#e7e4d6"/>
-                </linearGradient><path fill="url(#b)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z"/>
-                <linearGradient id="c" gradientUnits="userSpaceOnUse" x1="1959.712" y1="737.107" x2="26066.213"
-                                y2="737.107" gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)">
-                    <stop offset="0" stop-color="#f8f6ef"/>
-                    <stop offset="1" stop-color="#e7e4d6"/>
-                </linearGradient><path fill="url(#c)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z"/>
-                <linearGradient id="d" gradientUnits="userSpaceOnUse" x1="1959.712" y1="737.107" x2="26066.213"
-                                y2="737.107" gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)">
-                    <stop offset="0" stop-color="#f8f6ef"/><stop offset="1" stop-color="#e7e4d6"/>
-                </linearGradient><path fill="url(#d)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z"/>
-                <linearGradient id="e" gradientUnits="userSpaceOnUse" x1="1959.712" y1="737.107" x2="26066.213"
-                                y2="737.107" gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)">
-                    <stop offset="0" stop-color="#f8f6ef"/>
-                    <stop offset="1" stop-color="#e7e4d6"/>
-                </linearGradient><path fill="url(#e)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z"/>
-                <linearGradient id="f" gradientUnits="userSpaceOnUse" x1="1959.712" y1="737.107" x2="26066.213"
-                                y2="737.107" gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)">
-                    <stop offset="0" stop-color="#f8f6ef"/>
-                    <stop offset="1" stop-color="#e7e4d6"/>
-                </linearGradient><path fill="url(#f)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z"/>
-                <linearGradient id="g" gradientUnits="userSpaceOnUse" x1="1959.712" y1="737.107" x2="26066.213"
-                                y2="737.107" gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)">
-                    <stop offset="0" stop-color="#f8f6ef"/>
-                    <stop offset="1" stop-color="#e7e4d6"/>
-                </linearGradient><path fill="url(#g)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z"/>
-                <linearGradient id="h" gradientUnits="userSpaceOnUse" x1="1959.712" y1="737.107" x2="26066.213"
-                                y2="737.107" gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)">
-                    <stop offset="0" stop-color="#f8f6ef"/><stop offset="1" stop-color="#e7e4d6"/>
-                </linearGradient><path fill="url(#h)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z"/>
-                <path fill="#f7f5ed" d="M111.713 7.087l532.12 394.525L1179.439 7.087z"/>
-            </svg>
+            <img class="social-widget" onclick="shareOnBluesky()" src="./images/bluesky_logo.webp">
         </div>
     </div>
 
