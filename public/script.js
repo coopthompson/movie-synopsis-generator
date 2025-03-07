@@ -231,7 +231,7 @@ async function generateImage(synopsis) {
         const data = await response.json();
 
         if (data.imageUrl) {
-            // ✅ Display the image from the server
+            // Display the image from the server
             const img = document.getElementById("poster");
             img.src = `http://localhost:5000${data.imageUrl}?t=${new Date().getTime()}`;
             img.style.display = "block";
