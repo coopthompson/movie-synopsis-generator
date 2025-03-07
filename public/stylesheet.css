@@ -1,3 +1,6 @@
+/*This is the style sheet for  the website*/
+/*There is some superfluous or extra styling that could be consolidated or removed so refactoring is needed*/
+
 body {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -5,6 +8,7 @@ body {
     padding: 0;
 }
 
+/*Anything marked as .blank-mode, is added to page elements to control styling depending on selected setting*/
 body.light-mode .generated-text {
     color: #666;
 }
@@ -18,7 +22,7 @@ body.high-contrast-mode .generated-text {
     font-weight: bold;
 }
 
-
+/*Some styling attributes are marked as !important because I was having trouble getting them to show up for my project*/
 textarea {
     appearance: none;
     border: none;
@@ -147,7 +151,6 @@ body.dark-mode .settings-options input[type="radio"] {
 body.high-contrast-mode .settings-options input[type="radio"] {
     border-color: yellow;
 }
-
 
 .main-container {
     width: 90%;
@@ -433,7 +436,7 @@ form {
     gap: 10px;
 }
 
-/* RESPONSIVE DESIGN */
+/* These are to help with the page's responsive design. This is relevant depending on the media used to view the page.*/
 @media (max-width: 600px) {
     .settings-menu {
         width: 95%;

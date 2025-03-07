@@ -1,3 +1,4 @@
+<!-- This is my boilerplate HTML page-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,11 +9,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
+    <!-- I use a variety of divs because I use flexbox to help with my styling and display -->
     <div id="overlay" class="overlay"></div>
 
     <div id="settings-menu" class="settings-menu">
+        <!--This is the settings submenu that pops up after clicking the settings icon svg/button-->
         <div class="settings-header">
             <h2>Settings</h2>
+            <!-- SVGs have higher fidelity and the potential for more customization than img tags-->
             <svg id="close-settings" class="close-button" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228
                  2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM8.96963 8.96965C9.26252 8.67676 9.73739
@@ -25,24 +29,42 @@
             </svg>
         </div>
         <div class="settings-options">
+            <!--Radio buttons are used to ensure one option is always selected and only one option is selected-->
             <div class="sub-options">
+                <!-- Handles text sizing options-->
                 <h3>Text Size</h3>
                 <label><input type="radio" name="text-size" value="small" checked> Small Text</label>
                 <label><input type="radio" name="text-size" value="medium"> Medium Text</label>
                 <label><input type="radio" name="text-size" value="large"> Large Text</label>
             </div>
 
-        <div class="sub-options">
-            <h3>Display Settings</h3>
-            <label><input type="radio" name="display-mode" value="light" checked> Light Mode</label>
-            <label><input type="radio" name="display-mode" value="dark"> Dark Mode</label>
-            <label><input type="radio" name="display-mode" value="high-contrast"> High Contrast</label>
-        </div>
 
+            <div class="sub-options">
+                <!-- Handles various display settings and modes-->
+                <h3>Display Settings</h3>
+                <label><input type="radio" name="display-mode" value="light" checked> Light Mode</label>
+                <label><input type="radio" name="display-mode" value="dark"> Dark Mode</label>
+                <label><input type="radio" name="display-mode" value="high-contrast"> High Contrast</label>
+            </div>
+            <div class="sub-options" id="poster-styles">
+                <!--Optional settings for poster generation-->
+                <h3>Poster Settings (optional)</h3>
+                <label><input type="checkbox" value="Anime"> Anime</label>
+                <label><input type="checkbox" value="Claymation"> Claymation</label>
+                <label><input type="checkbox" value="Realistic"> Realistic</label>
+                <label><input type="checkbox" value="Cyberpunk"> Cyberpunk</label>
+                <label><input type="checkbox" value="Noir"> Noir</label>
+                <label><input type="checkbox" value="Vintage"> Vintage</label>
+                <label><input type="checkbox" value="Watercolor"> Watercolor</label>
+                <label><input type="checkbox" value="Sci-Fi"> Sci-Fi</label>
+                <label><input type="checkbox" value="Fantasy"> Fantasy</label>
+                <label><input type="checkbox" value="Gothic"> Gothic</label>
+            </div>
         </div>
     </div>
 
     <div class="main-container">
+        <!--This is where the main content of page lives-->
         <div class="settings-container">
             <svg class="settings" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M14.2788 2.15224C13.9085 2 13.439 2 12.5 2C11.561 2
@@ -83,11 +105,19 @@
                 <button type="submit" class="random-button">Random</button>
             </div>
         </form>
+        <div class="poster-box">
+            <div class="poster-container">
+                <img id="poster" alt="Generated Image" style="max-width: 100%; display: none;">
+            </div>
+            <!-- button onclick="generateImage()">New Poster</button-->
+        </div>
         <h3 id="movie-description">Generated Synopsis</h3>
         <div class="synopsis shared-style">
+            <!-- All AI generated text is put in this <p> -->
             <p class="generated-text"></p>
         </div>
         <div class="socials">
+            <!--Here are the various share buttons with links to each site and the associated onclick functions-->
             <h3>Share your creations (We don't keep your info)</h3>
             <svg class="social-widget" onclick="shareOnFacebook()" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>Facebook-color</title>
