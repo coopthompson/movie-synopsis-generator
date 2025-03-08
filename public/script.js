@@ -211,10 +211,14 @@ function getMovieContent() {
     return null;
 }
 
-async function generateImage(synopsis) {
+async function generateImage(synopsis = null) {
     if (!synopsis) {
-        alert("Please enter a movie synopsis!");
-        return;
+        const generatedContent = getMovieContent();
+        if (!generatedContent) {
+            alert("Please enter a movie synopsis!");
+            return;
+        } 
+        synopsis = generatedContent;
     }
 
     // Collect selected styles into an array

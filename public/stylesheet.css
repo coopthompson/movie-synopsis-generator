@@ -218,6 +218,10 @@ p.high-contrast-mode {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+.poster-box {
+    width: 100%;
+}
+
 .prompt-button, .random-button {
     padding: 15px 25px;
     font-size: 1.6rem;
