@@ -60,6 +60,25 @@
                 <label><input type="checkbox" value="Fantasy"> Fantasy</label>
                 <label><input type="checkbox" value="Gothic"> Gothic</label>
             </div>
+            <div class="sub-options">
+                <h3>Voice Over Settings (Optional)</h3>
+                <select id="voiceSelect">
+                    <option value="am_onyx">American Man 1</option>
+                    <option value="am_liam">American Man 2</option>
+                    <option value="am_eric">American Man 3</option>
+                    <option value="am_fenrir">American Man 4</option>
+                    <option value="af_alloy">American Woman 1</option>
+                    <option value="af_jessica">American Woman 2</option>
+                    <option value="af_river">American Woman 3</option>
+                    <option value="bm_george">British Man 1</option>
+                    <option value="bm_daniel">British Man 2</option>
+                    <option value="bf_lily">British Woman 1</option>
+                    <option value="bf_emma">British Woman 2</option>
+                    <option value="ff_siwis">French Woman</option>
+                    <option value="im_nicola">Italian Man</option>
+                    <option value="hm_psi">? Man</option>
+                </select>
+            </div>
         </div>
     </div>
 
@@ -94,6 +113,14 @@
                 10.8305 15 12.5 15Z" fill="currentColor"/>
             </svg>
         </div>
+        <div id="auth-container">
+            <button id="login-btn" class="prompt-button" onclick="goToLogin()">Login</button>
+            <span id="user-info" style="display: none; align-items: center;">
+                <strong id="username-display"></strong>
+                <button id="view-profile-btn" class="prompt-button" onclick="goToProfile()" syle="display: none;">View Saved Synopses</button>
+                <button id="logout-btn" class="prompt-button" onclick="logout()" syle="display: none;">Logout</button>
+            </span>
+        </div>                
         <h1>Movie Generator</h1>
         <p>Enter a prompt to generate a new movie</p>
         <form class="input-container">
@@ -106,7 +133,7 @@
             </div>
         </form>
         <div class="poster-box">
-            <h3 id="poster-description">Movie Poster</h3>
+            <h2 id="poster-description">Movie Poster</h3>
             <div class="poster-container">
                 <img id="poster" alt="Generated Image" style="max-width: 100%; display: none;">
             </div>
@@ -117,6 +144,11 @@
             <!-- All AI generated text is put in this <p> -->
             <p class="generated-text"></p>
         </div>
+        <h3 id="movie-description">Generated Synopsis</h3>
+        <button id="save-synopsis-btn" class="prompt-button" onclick="saveSynopsis()" style="display: none;">Save Synopsis</button>
+        <h2 id="voice-over-desc">Generated Voice Over (could take a minute)</h2>
+        <audio id="audioPlayer" controls style="display: none;"></audio>
+        <button class="prompt-button" onclick="generateAudio()">New Audio</button>
         <div class="socials">
             <!--Here are the various share buttons with links to each site and the associated onclick functions-->
             <h3>Share your creations (We don't keep your info)</h3>

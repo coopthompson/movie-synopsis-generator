@@ -35,6 +35,17 @@ textarea {
     color: inherit !important;
 }
 
+/* Auth Container - Top Left Corner */
+#auth-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
 body.light-mode,
 body.light-mode .main-container {
     background-color: #f4f4f4;

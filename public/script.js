@@ -60,6 +60,103 @@ function shareOnBluesky() {
     });
 }
 
+document.addEventListener("DOMContentLoaded", getQueryParams());
+
+function getQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+    const username = params.get("username");
+
+    localStorage.setItem("userId", username);
+    localStorage.setItem("token", token);
+
+    console.log("Received from profile:", username, token);
+
+    updateAuthUI();
+}
+
+function updateAuthUI() {
+    const username = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
+    console.log(token, username);
+
+    const loginBtn = document.getElementById("login-btn");
+    const userInfo = document.getElementById("user-info");
+    const usernameDisplay = document.getElementById("username-display");
+    const profileBtn = document.getElementById("view-profile-btn");
+    const logoutBtn = document.getElementById("logout-btn");
+    const saveButton = document.getElementById("save-synopsis-btn");
+
+    if (token != null  && username != null) {
+        // User is logged in
+        loginBtn.style.display = "none"; // Hide login button
+        userInfo.style.display = "inline"; // Show username + logout
+        usernameDisplay.innerText = `Welcome, ${username}!`;
+        profileBtn.style.display = "inline-block"; // Show profile button
+        logoutBtn.style.display = "inline-block"; // Show logout button
+        saveButton.style.display = "inline-block"; // Show save button
+    } else {
+        // User is not logged in
+        loginBtn.style.display = "inline"; // Show login button
+        userInfo.style.display = "none"; // Hide username + logout
+        profileBtn.style.display = "none"; // Show profile button
+        saveButton.style.display = "none"; // Show save button
+    }
+}
+
+function goToLogin() {
+    window.location.href = "http://localhost:5003/login.html";
+}
+
+function goToProfile() {
+    window.location.href = "http://localhost:5003/profile.html";
+}
+
+function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("userId");
+    updateAuthUI(); // Refresh UI
+}
+
+async function saveSynopsis() {
+    const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
+    const synopsisText = document.querySelector(".synopsis p").innerText.trim();
+
+    if (!userId || !token) {
+        alert("You must be logged in to save a synopsis.");
+        return;
+    }
+
+    if (!synopsisText || synopsisText === "Error fetching the synopsis. Please try again." || synopsisText === "Failed to generate synopsis.") {
+        alert("No valid synopsis to save!");
+        return;
+    }
+
+    try {
+        const response = await fetch("http://localhost:5002/api/synopsisRoutes/save", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({ userId, text: synopsisText })
+        });
+
+        const data = await response.json();
+        if (data.success) {
+            alert("Synopsis saved successfully! Click the 'View Saved Synopses button at the top of the page to see.");
+        } else {
+            alert("Failed to save synopsis.");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred while saving the synopsis.");
+    }
+}
+
+
 // Section used for the ai generation part of the program
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector(".input-container");
@@ -128,6 +225,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.error("Error:", error);
                 posterOutput.innerText = "Error displaying poster image";
 
+            }
+
+            try {
+                generateAudio(data.synopsis);
+                
+            } catch (error) {
+                console.error("Error:", error);
             }
 
         } catch (error) {
@@ -245,5 +349,41 @@ async function generateImage(synopsis = null) {
     } catch (error) {
         console.error("Error:", error);
         alert("An error occurred while generating the image.");
+    }
+}
+
+async function generateAudio(text = null) {
+    if (!text) {
+        const generatedContent = getMovieContent();
+        if (!generatedContent) {
+            alert("Please enter a movie synopsis!");
+            return;
+        } 
+        text = generatedContent;
+    }
+
+    const voice = document.getElementById("voiceSelect").value;
+
+    try {
+        const response = await fetch("http://localhost:9000/generate-audio", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text, voice }),
+        });
+
+        const data = await response.json();
+
+        if (data.audioUrl) {
+            // Play the generated audio
+            const audio = document.getElementById("audioPlayer");
+            audio.src = `http://localhost:9000${data.audioUrl}?t=${new Date().getTime()}`;
+            audio.style.display = "block";
+            audio.play();
+        } else {
+            alert("Failed to generate audio.");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred while generating the audio.");
     }
 }
